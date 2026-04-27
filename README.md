@@ -48,7 +48,6 @@ Base de datos (PostgreSQL)
 * Angular 21
 * TypeScript
 * RxJS
-* Tailwind CSS
 * Standalone Components
 
 ### 🐳 DevOps
@@ -68,7 +67,6 @@ banco-api-fullstack/
 ├── frontend/             # Aplicación Angular
 ├── postman/              # Colección Postman
 ├── docker-compose.yml
-├── run.bat (opcional)
 └── README.md
 ```
 
@@ -79,7 +77,7 @@ banco-api-fullstack/
 ## 1️⃣ Clonar repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/banco-api-fullstack.git
+git clone https://github.com/juniorcastillo/banco-api-fullstack.git
 cd banco-api-fullstack
 ```
 

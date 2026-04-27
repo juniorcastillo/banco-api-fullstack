@@ -47,21 +47,28 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public Cliente actualizar(Long id, Cliente datos) {
-        logger.info("Actualizando cliente con ID: {}", id);
-        Cliente cliente = buscarPorId(id);
+ public Cliente actualizar(Long id, Cliente cliente) {
 
-        cliente.setNombre(datos.getNombre());
-        cliente.setGenero(datos.getGenero());
-        cliente.setEdad(datos.getEdad());
-        cliente.setIdentificacion(datos.getIdentificacion());
-        cliente.setDireccion(datos.getDireccion());
-        cliente.setTelefono(datos.getTelefono());
-        cliente.setEstado(datos.getEstado());
+    Cliente clienteExistente = buscarPorId(id);
 
-        logger.info("Cliente actualizado exitosamente: {}", id);
-        return clienteRepository.save(cliente);
+    System.out.println("PASSWORD RECIBIDO = [" + cliente.getPassword() + "]");
+    System.out.println("LONGITUD PASSWORD = " +
+            (cliente.getPassword() != null ? cliente.getPassword().length() : "null"));
+
+    clienteExistente.setNombre(cliente.getNombre());
+    clienteExistente.setGenero(cliente.getGenero());
+    clienteExistente.setEdad(cliente.getEdad());
+    clienteExistente.setIdentificacion(cliente.getIdentificacion());
+    clienteExistente.setDireccion(cliente.getDireccion());
+    clienteExistente.setTelefono(cliente.getTelefono());
+    clienteExistente.setEstado(cliente.getEstado());
+
+    if (cliente.getPassword() != null && !cliente.getPassword().isBlank()) {
+        clienteExistente.setPassword(cliente.getPassword());
     }
+
+    return clienteRepository.save(clienteExistente);
+}
 
     public void eliminar(Long id) {
         logger.info("Eliminando cliente con ID: {}", id);

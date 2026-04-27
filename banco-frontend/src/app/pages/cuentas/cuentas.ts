@@ -126,7 +126,7 @@ export class Cuentas implements OnInit {
         this.cancelarFormulario();
       },
       error: (err) => {
-        this.mensajeError.set(err.error?.detalles || 'Error al crear cuenta');
+        this.mensajeError.set(err.error?.mensaje || 'Error al crear cuenta');
       }
     });
   }
@@ -158,7 +158,7 @@ actualizarCuenta(id: number, cuentaEnviar: any): void {
       this.mensajeExito.set('Cuenta actualizada correctamente');
     },
     error: (err: any) => {
-      this.mensajeError.set(err.error?.detalles?.message || 'Error al actualizar cuenta');
+      this.mensajeError.set(err.error?.mensaje?.message || 'Error al actualizar cuenta');
     }
   });
 }
@@ -176,7 +176,7 @@ actualizarCuenta(id: number, cuentaEnviar: any): void {
         this.cargarCuentas();
       },
       error: (err) => {
-        this.mensajeError.set(err.error?.detalles || 'Error al eliminar cuenta');
+        this.mensajeError.set(err.error?.mensaje || 'Error al eliminar cuenta');
       }
     });
   }

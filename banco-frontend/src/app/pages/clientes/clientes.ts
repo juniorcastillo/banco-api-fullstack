@@ -142,7 +142,7 @@ private clientesService = inject(ClientesService);
       },
       error: (err) => {
         console.log('Error creando cliente:', err);
-        this.mensajeError.set(err.detalles || 'Error al crear cliente');
+        this.mensajeError.set(err.mensaje || 'Error al crear cliente');
       }
     });
   }
@@ -155,7 +155,7 @@ private clientesService = inject(ClientesService);
         this.cancelarFormulario();
       },
       error: (err) => {
-        this.mensajeError.set(err.detalles || 'Error al actualizar cliente');
+        this.mensajeError.set(err.mensaje || 'Error al actualizar cliente');
       }
     });
   }

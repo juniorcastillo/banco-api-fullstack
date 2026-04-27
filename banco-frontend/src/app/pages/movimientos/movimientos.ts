@@ -100,7 +100,7 @@ export class Movimientos implements OnInit {
      error: (err: any) => {
   console.error('Error creando movimiento:', err);
 
-  const mensajeBackend = err.error?.detalles?.message || err.error?.detalles || '';
+  const mensajeBackend = err.error?.mensaje?.message || err.error?.mensaje || '';
 
  /*  if (String(mensajeBackend).includes('El valor debe ser mayor que cero')) {
     this.mensajeError.set('El valor debe ser mayor que cero');
@@ -140,7 +140,7 @@ export class Movimientos implements OnInit {
       },
       error: (err: any) => {
         console.error('Error eliminando movimiento:', err);
-        this.mensajeError.set(err.error?.detalles?.message || 'Error al eliminar movimiento');
+        this.mensajeError.set(err.error?.mensaje?.message || 'Error al eliminar movimiento');
       }
     });
   }

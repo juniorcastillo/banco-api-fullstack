@@ -9,7 +9,6 @@ Aplicación web desarrollada en Angular para la gestión de clientes, cuentas y 
 - Angular 21
 - TypeScript
 - RxJS
-- Tailwind CSS
 - Nginx (despliegue)
 
 ---
@@ -53,7 +52,7 @@ docker build -t banco-frontend .
 docker run -d --name banco-frontend -p 4200:80 banco-frontend
 
 ### 3. Acceder
-Hay que abrirlo en ventana de incognito y lipiar la cache del navegador
+Hay que abrirlo en ventana de incognito y limpiar la cache del navegador
 http://localhost:4200
 
 ---

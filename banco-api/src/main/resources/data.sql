@@ -4,11 +4,11 @@ INSERT INTO clientes (nombre, genero, edad, identificacion, direccion, telefono,
 ('Juan Osorio', 'Masculino', 32, '1234567892', '13 junio y Equinoccial', '098874587', '1245', true);
 
 INSERT INTO cuentas (numero_cuenta, tipo_cuenta, saldo_inicial, saldo_disponible, estado, cliente_id) VALUES
-('478758', 'Ahorro', 2000, 1425, true, 1),
-('225487', 'Corriente', 100, 700, true, 2),
-('495878', 'Ahorros', 0, 150, true, 3),
-('496825', 'Ahorros', 540, 0, true, 2),
-('585545', 'Corriente', 1000, 1000, true, 1);
+('478758', 'AHORRO', 2000, 1425, true, 1),
+('225487', 'CORRIENTE', 100, 700, true, 2),
+('495878', 'AHORRO', 0, 150, true, 3),
+('496825', 'AHORRO', 540, 0, true, 2),
+('585545', 'CORRIENTE', 1000, 1000, true, 1);
 
 INSERT INTO movimientos (fecha, tipo_movimiento, valor, saldo, cuenta_id) VALUES
 (CURRENT_DATE, 'DEBITO', -575, 1425, 1),

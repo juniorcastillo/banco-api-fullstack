@@ -1,0 +1,111 @@
+<h1 class="page-title">Movimientos</h1>
+
+<div class="toolbar">
+  <input
+    class="search-input"
+    type="text"
+    placeholder="Buscar"
+    [value]="busqueda()"
+    (input)="busqueda.set($any($event.target).value)"
+  />
+
+  <button class="btn-new" type="button" (click)="abrirNuevo()">
+    Nuevo
+  </button>
+</div>
+
+@if (mensajeError()) {
+  <div class="error-message">{{ mensajeError() }}</div>
+}
+
+@if (mensajeExito()) {
+  <div class="success-message">{{ mensajeExito() }}</div>
+}
+
+@if (mostrarFormulario) {
+  <form class="form-box" [formGroup]="movimientoForm" (ngSubmit)="crearMovimiento()">
+    <div class="form-row">
+
+      <div class="form-field">
+        <select formControlName="tipoMovimiento">
+          <option value="">Seleccione tipo</option>
+          <option value="CREDITO">Crédito</option>
+          <option value="DEBITO">Débito</option>
+        </select>
+
+        @if (campoInvalido('tipoMovimiento')) {
+          <small>Debe seleccionar el tipo de movimiento</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <input
+          formControlName="valor"
+          type="number"
+          placeholder="Valor"
+        />
+
+        @if (campoInvalido('valor')) {
+          <small>El valor es obligatorio y debe ser mayor a 0</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <select formControlName="cuentaId">
+          <option [ngValue]="null">Seleccione cuenta</option>
+
+          @for (cuenta of cuentas(); track cuenta.id) {
+            <option [ngValue]="cuenta.id">
+              {{ cuenta.numeroCuenta }} - {{ cuenta.nombreCliente }}
+            </option>
+          }
+        </select>
+
+        @if (campoInvalido('cuentaId')) {
+          <small>Debe seleccionar una cuenta</small>
+        }
+      </div>
+
+      <button class="btn-save" type="submit">Guardar</button>
+
+      <button class="btn-cancel" type="button" (click)="cancelarFormulario()">
+        Cancelar
+      </button>
+
+    </div>
+  </form>
+}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Fecha</th>
+      <th>Tipo</th>
+      <th>Valor</th>
+      <th>Saldo</th>
+      <th>Cuenta</th>
+      <th>Cliente</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (m of movimientosFiltrados(); track m.id) {
+      <tr>
+        <td>{{ m.id }}</td>
+        <td>{{ m.fecha }}</td>
+        <td>{{ m.tipoMovimiento }}</td>
+        <td>{{ m.valor  | number  }}</td>
+        <td>{{ m.saldo  | number }}</td>
+        <td>{{ m.numeroCuenta || m.id }}</td>
+        <td>{{ m.nombreCliente || '-' }}</td>
+        <td>
+          <button class="btn-delete" type="button" (click)="eliminarMovimiento(m.id!)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

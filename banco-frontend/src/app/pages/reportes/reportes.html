@@ -1,0 +1,62 @@
+<h1 class="page-title">Reportes</h1>
+
+<div class="form-box">
+
+  <select [(ngModel)]="clienteId">
+    <option [ngValue]="null">Seleccione cliente</option>
+
+    @for (c of clientes(); track c.id) {
+      <option [ngValue]="c.id">
+        {{ c.identificacion }} - {{ c.nombre }}
+      </option>
+    }
+  </select>
+
+  <input type="date" [(ngModel)]="fechaInicio">
+  <input type="date" [(ngModel)]="fechaFin">
+
+  <button class="btn-save" (click)="generarReporte()">
+    Generar
+  </button>
+
+  <button class="btn-cancel" (click)="descargarPDF()">
+    Descargar PDF
+  </button>
+
+</div>
+
+@if (mensajeError()) {
+  <div class="error-message">
+    {{ mensajeError() }}
+  </div>
+}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Cliente</th>
+      <th>Cuenta</th>
+      <th>Tipo</th>
+      <th>Saldo Inicial</th>
+      <th>Estado</th>
+      <th>Movimiento</th>
+      <th>Saldo</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (r of reporte(); track r.fecha) {
+      <tr>
+        <td>{{ r.fecha }}</td>
+        <td>{{ r.cliente }}</td>
+        <td>{{ r.numeroCuenta }}</td>
+        <td>{{ r.tipoCuenta }}</td>
+        <td>{{ r.saldoInicial | number  }}</td>
+        <td>{{ r.estado ? 'Activa' : 'Inactiva' }}</td>
+        <td>{{ r.movimiento  | number }}</td>
+        <td>{{ r.saldoDisponible  | number }}</td>
+      </tr>
+    }
+  </tbody>
+</table>

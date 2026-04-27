@@ -1,0 +1,141 @@
+<h1 class="page-title">Clientes</h1>
+
+<div class="toolbar">
+  <input
+    class="search-input"
+    type="text"
+    placeholder="Buscar"
+    [value]="busqueda()"
+    (input)="busqueda.set($any($event.target).value)"
+  />
+
+  <button class="btn-new" type="button" (click)="abrirNuevo()">
+    Nuevo
+  </button>
+</div>
+
+@if (mensajeError()) {
+  <div class="error-message">
+    {{ mensajeError() }}
+  </div>
+}
+
+@if (mensajeExito()) {
+  <div class="success-message">
+    {{ mensajeExito() }}
+  </div>
+}
+
+@if (mostrarFormulario) {
+  <form [formGroup]="clienteForm" (ngSubmit)="guardarCliente()">
+
+    <div class="form-row">
+      <div class="form-field">
+        <input formControlName="nombre" placeholder="Nombre" />
+        @if (campoInvalido('nombre')) {
+          <small>El nombre es obligatorio</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <select formControlName="genero">
+          <option value="">Seleccione género</option>
+          <option value="MASCULINO">Masculino</option>
+          <option value="FEMENINO">Femenino</option>
+        </select>
+        @if (campoInvalido('genero')) {
+          <small>El género es obligatorio</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <input formControlName="edad" type="number" placeholder="Edad" />
+        @if (campoInvalido('edad')) {
+          <small>La edad debe ser mayor a 0</small>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <input formControlName="identificacion" placeholder="Identificación" />
+        @if (campoInvalido('identificacion')) {
+          <small>La identificación es obligatoria y solo debe contener números</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <input formControlName="direccion" placeholder="Dirección" />
+        @if (campoInvalido('direccion')) {
+          <small>La dirección es obligatoria</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <input formControlName="telefono" placeholder="Teléfono" />
+        @if (campoInvalido('telefono')) {
+          <small>El teléfono debe tener 10 dígitos</small>
+        }
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-field">
+        <input formControlName="password" type="password" placeholder="Contraseña" />
+        @if (campoInvalido('password')) {
+          <small>La contraseña debe tener mínimo 6 caracteres</small>
+        }
+      </div>
+
+      <div class="form-field">
+        <select formControlName="estado">
+          <option [ngValue]="true">Activo</option>
+          <option [ngValue]="false">Inactivo</option>
+        </select>
+      </div>
+
+      <button class="btn-save" type="submit">
+        {{ modoEdicion ? 'Actualizar' : 'Guardar' }}
+      </button>
+
+      <button class="btn-cancel" type="button" (click)="cancelarFormulario()">
+        Cancelar
+      </button>
+    </div>
+
+  </form>
+}
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Identificación</th>
+      <th>Dirección</th>
+      <th>Teléfono</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    @for (c of clientesFiltrados(); track c.id) {
+      <tr>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.identificacion }}</td>
+        <td>{{ c.direccion }}</td>
+        <td>{{ c.telefono }}</td>
+        <td>{{ c.estado ? 'Activo' : 'Inactivo' }}</td>
+        <td>
+          <button class="btn-edit" type="button" (click)="editarCliente(c)">
+            Editar
+          </button>
+
+          <button class="btn-delete" type="button" (click)="eliminarCliente(c.id!)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
